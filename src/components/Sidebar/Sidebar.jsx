@@ -27,7 +27,9 @@ const Sidebar = () => {
   const [darkMode, setdarkMode] = useState("light");
 
   useEffect(() => {
-    // let mode = !darkMode ? "dark" : "light";
+    // You can write all this as a fxn  and attach it to the element onclick, but using
+    // this useEffect method, the state (darkMode) will have to change first before
+    // the useEffect method takes effect
     if (!darkMode) {
       document.documentElement.classList.remove("dark");
     } else {
@@ -59,9 +61,6 @@ const Sidebar = () => {
     setActiveSubmenu(activeSubmenu === index ? null : index);
   };
 
-  //   const toggleTheme = () => {
-  //     document.documentElement.classList.toggle("dark");
-  //   }
 
   return (
     <section className="flex">
@@ -119,6 +118,8 @@ const Sidebar = () => {
                     />
                   )}
                 </span>
+
+                {/* This section takes care of the tooltip */}
                 <span
                   className={`${
                     open && "hidden"
@@ -127,12 +128,19 @@ const Sidebar = () => {
                 >
                   {menu.title}
                 </span>
+
+                {/* End of tooltip section */}
+
               </li>
+
+              {/* Submenus section */}
               {menu.submenu && activeSubmenu === index && (
                 <SubMenu items={menu.submenu} />
               )}
+              {/* End of Submenus section */}
             </div>
           ))}
+
           <button
             onClick={() => {
               setdarkMode(!darkMode);
@@ -141,6 +149,7 @@ const Sidebar = () => {
           >
             {!darkMode ? <FaSun /> : <FaRegMoon />}
           </button>
+
         </ul>
       </div>
       <Home />
